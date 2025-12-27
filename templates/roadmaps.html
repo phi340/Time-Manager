@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+	<meta charset="UTF-8">
+	<title>Lộ trình - Plin</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Quicksand:wght@600;700&display=swap" rel="stylesheet">
+	<style>
+		* {
+			font-family: 'Inter', sans-serif;
+		}
+		
+		h1, h2, h3 {
+			font-family: 'Quicksand', sans-serif;
+		}
+		
+		body {
+			background-color: #FFF8F0;
+			min-height: 100vh;
+		}
+		
+		.navbar {
+			background: #FFFFFF;
+			border-bottom: 2px solid #FFE5D9;
+			padding: 1.2rem 0;
+			box-shadow: 0 4px 20px rgba(255, 107, 107, 0.08);
+			margin-bottom: 3rem;
+		}
+		
+		.navbar-brand {
+			font-family: 'Quicksand', sans-serif;
+			font-weight: 700;
+			font-size: 1.6rem;
+			background: linear-gradient(135deg, #FF6B6B 0%, #FFA07A 100%);
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+			background-clip: text;
+			text-decoration: none;
+			display: flex;
+			align-items: center;
+			gap: 12px;
+		}
+		
+		.logo-img {
+			width: 42px;
+			height: 42px;
+			border-radius: 50%;
+		}
+		
+		.nav-link-custom {
+			color: #636E72;
+			text-decoration: none;
+			margin: 0 0.8rem;
+			font-weight: 500;
+			padding: 10px 20px;
+			border-radius: 12px;
+			transition: all 0.2s;
+		}
+		
+		.nav-link-custom:hover {
+			color: #FF6B6B;
+			background: #FFE5D9;
+		}
+		
+		.nav-link-custom.active {
+			color: #FF6B6B;
+			background: #FFE5D9;
+			font-weight: 600;
+		}
+		
+		.user-badge {
+			background: linear-gradient(135deg, #FFE5D9 0%, #F4F1FF 100%);
+			color: #9D84B7;
+			padding: 10px 24px;
+			border-radius: 50px;
+			font-weight: 600;
+			border: 2px solid #F4F1FF;
+		}
+		
+		.btn-logout {
+			background: transparent;
+			border: 2px solid #FF6B6B;
+			color: #FF6B6B;
+			padding: 10px 24px;
+			border-radius: 50px;
+			font-weight: 600;
+			transition: all 0.2s;
+		}
+		
+		.btn-logout:hover {
+			background: #FF6B6B;
+			color: white;
+		}
+		
+		.main-container {
+			max-width: 1100px;
+			margin: 0 auto;
+			padding: 40px 20px;
+		}
+		
+		.header-section {
+			text-align: center;
+			margin-bottom: 3rem;
+		}
+		
+		.header-section h1 {
+			font-size: 3rem;
+			font-weight: 700;
+			color: #2D3436;
+			margin-bottom: 0.5rem;
+		}
+		
+		.header-section p {
+			color: #636E72;
+			font-size: 1.2rem;
+		}
+		
+		.add-roadmap-card {
+			background: white;
+			border-radius: 24px;
+			padding: 35px;
+			box-shadow: 0 4px 20px rgba(255, 107, 107, 0.1);
+			border: 2px solid #FFE5D9;
+			margin-bottom: 3rem;
+		}
+		
+		.add-roadmap-card h4 {
+			color: #2D3436;
+			margin-bottom: 1.5rem;
+		}
+		
+		.add-roadmap-card input {
+			border: 2px solid #FFE5D9;
+			border-radius: 16px;
+			padding: 16px 24px;
+			font-size: 1.05rem;
+			transition: all 0.2s;
+		}
+		
+		.add-roadmap-card input:focus {
+			border-color: #FF8B94;
+			box-shadow: 0 0 0 4px rgba(255, 139, 148, 0.1);
+		}
+		
+		.btn-add {
+			background: linear-gradient(135deg, #FF6B6B 0%, #FFA07A 100%);
+			border: none;
+			color: white;
+			font-weight: 600;
+			padding: 16px 36px;
+			border-radius: 16px;
+			transition: all 0.3s;
+			box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+		}
+		
+		.btn-add:hover {
+			transform: translateY(-2px);
+			box-shadow: 0 6px 16px rgba(255, 107, 107, 0.4);
+		}
+		
+		.roadmap-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+			gap: 25px;
+		}
+		
+		.roadmap-card {
+			background: white;
+			border-radius: 24px;
+			padding: 35px 30px;
+			box-shadow: 0 4px 15px rgba(255, 107, 107, 0.08);
+			transition: all 0.3s ease;
+			cursor: pointer;
+			position: relative;
+			overflow: hidden;
+			border: 2px solid #FFE5D9;
+		}
+		
+		.roadmap-card::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			height: 6px;
+			background: linear-gradient(90deg, #FF6B6B, #FFA07A);
+		}
+		
+		.roadmap-card.completed::before {
+			background: linear-gradient(90deg, #4ECDC4, #95E1D3);
+		}
+		
+		.roadmap-card.completed::after {
+			content: '✓';
+			position: absolute;
+			top: 20px;
+			left: 20px;
+			background: linear-gradient(135deg, #4ECDC4 0%, #95E1D3 100%);
+			color: white;
+			width: 40px;
+			height: 40px;
+			border-radius: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 24px;
+			font-weight: bold;
+			box-shadow: 0 4px 12px rgba(78, 205, 196, 0.4);
+		}
+		
+		.roadmap-card:hover {
+			transform: translateY(-8px);
+			box-shadow: 0 12px 30px rgba(255, 107, 107, 0.15);
+			border-color: #FF8B94;
+		}
+		
+		.btn-delete-roadmap {
+			position: absolute;
+			top: 20px;
+			right: 20px;
+			background: #FF6B6B;
+			color: white;
+			border: none;
+			border-radius: 50%;
+			width: 40px;
+			height: 40px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 20px;
+			font-weight: bold;
+			cursor: pointer;
+			opacity: 0;
+			transition: all 0.3s ease;
+			z-index: 10;
+			box-shadow: 0 4px 12px rgba(255, 107, 107, 0.4);
+		}
+		
+		.roadmap-card:hover .btn-delete-roadmap {
+			opacity: 1;
+		}
+		
+		.btn-delete-roadmap:hover {
+			background: #ff5555;
+			transform: scale(1.1);
+		}
+		
+		.roadmap-icon {
+			font-size: 3rem;
+			margin-bottom: 1rem;
+		}
+		
+		.roadmap-title {
+			font-size: 1.5rem;
+			font-weight: 700;
+			color: #2D3436;
+			margin-bottom: 0.8rem;
+		}
+		
+		.roadmap-meta {
+			color: #636E72;
+			font-size: 1rem;
+		}
+		
+		.empty-state {
+			text-align: center;
+			padding: 80px 20px;
+		}
+		
+		.empty-state-icon {
+			font-size: 5rem;
+			margin-bottom: 1.5rem;
+		}
+		
+		.empty-state h3 {
+			color: #2D3436;
+			margin-bottom: 0.5rem;
+		}
+		
+		.empty-state p {
+			color: #636E72;
+			font-size: 1.1rem;
+		}
+
+		.footer {
+			background: white;
+			border-top: 2px solid #FFE5D9;
+			padding: 40px 0;
+			margin-top: 4rem;
+		}
+		
+		.footer-content {
+			max-width: 1200px;
+			margin: 0 auto;
+			padding: 0 20px;
+		}
+		
+		.footer-links {
+			display: flex;
+			justify-content: center;
+			gap: 30px;
+			margin-bottom: 1.5rem;
+			flex-wrap: wrap;
+		}
+		
+		.footer-links a {
+			color: #636E72;
+			text-decoration: none;
+			transition: color 0.2s;
+			font-weight: 500;
+		}
+		
+		.footer-links a:hover {
+			color: #FF6B6B;
+		}
+		
+		.copyright {
+			text-align: center;
+			color: #B2BEC3;
+			font-size: 0.9rem;
+		}
+	</style>
+</head>
+<body>
+
+<nav class="navbar">
+	<div class="container">
+		<div class="d-flex justify-content-between align-items-center w-100">
+			<a class="navbar-brand" href="/">
+				<img src="/static/shibalogo.jpeg" alt="Plin" class="logo-img">
+				Plin
+			</a>
+			
+			<div class="d-flex align-items-center gap-2">
+				<a href="/calendar" class="nav-link-custom">Lịch trình</a>
+				<a href="/todo" class="nav-link-custom">Todo</a>
+				<a href="/notes" class="nav-link-custom">Ghi chú</a>
+				<a href="/roadmaps" class="nav-link-custom active">Lộ trình</a>
+				<a href="/chat" class="nav-link-custom">Chat</a>
+			</div>
+			
+			<div class="d-flex align-items-center gap-3">
+				<span class="user-badge">{{ session['username'] }}</span>
+				<button class="btn btn-logout" onclick="window.location.href='/logout'">
+					Đăng xuất
+				</button>
+			</div>
+		</div>
+	</div>
+</nav>
+
+<div class="main-container">
+	<div class="header-section">
+		<h1>Lộ trình của tôi</h1>
+		<p>Lập kế hoạch và theo dõi hành trình phát triển</p>
+	</div>
+
+	<div class="add-roadmap-card">
+		<h4>Tạo lộ trình mới</h4>
+		<form action="/add_roadmap" method="POST" class="d-flex gap-3">
+			<input type="text" name="title" class="form-control border-0" 
+				   placeholder="Ví dụ: Học Python từ cơ bản đến nâng cao..." 
+				   required>
+			<button type="submit" class="btn btn-add">Tạo</button>
+		</form>
+	</div>
+
+	{% if roadmaps %}
+	<div class="roadmap-grid">
+		{% for r in roadmaps %}
+		<div class="roadmap-card {{ 'completed' if r['is_completed'] }}" onclick="window.location.href='/roadmap/{{ r['id'] }}'">
+			<button class="btn-delete-roadmap" 
+					onclick="event.stopPropagation(); if(confirm('Bạn chắc chắn muốn xóa lộ trình này? Tất cả các chặng dừng cũng sẽ bị xóa!')) window.location.href='/delete_roadmap/{{ r['id'] }}'">
+				×
+			</button>
+			<div class="roadmap-icon">🎯</div>
+			<div class="roadmap-title">{{ r['title'] }}</div>
+			<div class="roadmap-meta">Nhấn để xem chi tiết</div>
+		</div>
+		{% endfor %}
+	</div>
+	{% else %}
+	<div class="empty-state">
+		<div class="empty-state-icon">📋</div>
+		<h3>Chưa có lộ trình nào</h3>
+		<p>Hãy tạo lộ trình đầu tiên để bắt đầu hành trình!</p>
+	</div>
+	{% endif %}
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<footer class="footer">
+	<div class="footer-content">
+		<div class="footer-links">
+			<a href="/about">Về chúng tôi</a>
+			<a href="/terms">Điều khoản sử dụng</a>
+			<a href="/privacy">Chính sách bảo mật</a>
+		</div>
+		<div class="copyright">
+			© 2025 Plin. All rights reserved. Made with ❤️ by Finn
+		</div>
+	</div>
+</footer>
+</body>
+</html>

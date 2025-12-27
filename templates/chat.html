@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Chat với Plin - Plin</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Quicksand:wght@600;700&display=swap" rel="stylesheet">
+	<style>
+		* {
+			font-family: 'Inter', sans-serif;
+		}
+		
+		h1, h2, h3 {
+			font-family: 'Quicksand', sans-serif;
+		}
+		
+		body {
+			background-color: #FFF8F0;
+			margin: 0;
+			padding: 0;
+		}
+		
+		.navbar {
+			background: #FFFFFF;
+			border-bottom: 2px solid #FFE5D9;
+			padding: 1.2rem 0;
+			box-shadow: 0 4px 20px rgba(255, 107, 107, 0.08);
+			margin-bottom: 2rem;
+		}
+		
+		.navbar-brand {
+			font-family: 'Quicksand', sans-serif;
+			font-weight: 700;
+			font-size: 1.6rem;
+			background: linear-gradient(135deg, #FF6B6B 0%, #FFA07A 100%);
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+			background-clip: text;
+			text-decoration: none;
+			display: flex;
+			align-items: center;
+			gap: 12px;
+		}
+		
+		.logo-img {
+			width: 42px;
+			height: 42px;
+			border-radius: 50%;
+		}
+		
+		.nav-link-custom {
+			color: #636E72;
+			text-decoration: none;
+			margin: 0 0.8rem;
+			font-weight: 500;
+			padding: 10px 20px;
+			border-radius: 12px;
+			transition: all 0.2s;
+		}
+		
+		.nav-link-custom:hover {
+			color: #FF6B6B;
+			background: #FFE5D9;
+		}
+		
+		.nav-link-custom.active {
+			color: #FF6B6B;
+			background: #FFE5D9;
+			font-weight: 600;
+		}
+		
+		.user-badge {
+			background: linear-gradient(135deg, #FFE5D9 0%, #F4F1FF 100%);
+			color: #9D84B7;
+			padding: 10px 24px;
+			border-radius: 50px;
+			font-weight: 600;
+			border: 2px solid #F4F1FF;
+		}
+		
+		.btn-logout {
+			background: transparent;
+			border: 2px solid #FF6B6B;
+			color: #FF6B6B;
+			padding: 10px 24px;
+			border-radius: 50px;
+			font-weight: 600;
+			transition: all 0.2s;
+		}
+		
+		.btn-logout:hover {
+			background: #FF6B6B;
+			color: white;
+		}
+		
+		.chat-container {
+			max-width: 900px;
+			margin: 0 auto;
+			height: calc(100vh - 100px);
+			display: flex;
+			flex-direction: column;
+		}
+		
+		.chat-header {
+			background: linear-gradient(135deg, #FF8B94 0%, #9D84B7 100%);
+			padding: 25px;
+			border-radius: 24px 24px 0 0;
+			color: white;
+			text-align: center;
+		}
+		
+		.chat-header h2 {
+			margin: 0;
+			font-size: 1.8rem;
+		}
+		
+		.chat-header p {
+			margin: 0.5rem 0 0 0;
+			opacity: 0.9;
+		}
+		
+		.chat-messages {
+			flex: 1;
+			background: white;
+			padding: 30px;
+			overflow-y: auto;
+			border-left: 2px solid #FFE5D9;
+			border-right: 2px solid #FFE5D9;
+		}
+		
+		.message {
+			display: flex;
+			margin-bottom: 20px;
+			animation: fadeIn 0.3s ease;
+		}
+		
+		@keyframes fadeIn {
+			from { opacity: 0; transform: translateY(10px); }
+			to { opacity: 1; transform: translateY(0); }
+		}
+		
+		.message.user {
+			justify-content: flex-end;
+		}
+		
+		.message-content {
+			max-width: 65%;
+			padding: 16px 22px;
+			border-radius: 20px;
+			line-height: 1.6;
+			font-size: 1.05rem;
+		}
+		
+		.message.plin .message-content {
+			background: linear-gradient(135deg, #FFE5D9 0%, #F4F1FF 100%);
+			color: #2D3436;
+			border-bottom-left-radius: 5px;
+		}
+		
+		.message.user .message-content {
+			background: linear-gradient(135deg, #FF6B6B 0%, #FFA07A 100%);
+			color: white;
+			border-bottom-right-radius: 5px;
+		}
+		
+		.message-avatar {
+			width: 40px;
+			height: 40px;
+			border-radius: 50%;
+			margin: 0 12px;
+			flex-shrink: 0;
+		}
+		
+		.message.plin .message-avatar {
+			background: linear-gradient(135deg, #FF8B94 0%, #9D84B7 100%);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 1.5rem;
+		}
+		
+		.message.user .message-avatar {
+			background: linear-gradient(135deg, #4ECDC4 0%, #95E1D3 100%);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: white;
+			font-weight: 700;
+		}
+		
+		.chat-input-container {
+			background: white;
+			padding: 25px;
+			border: 2px solid #FFE5D9;
+			border-top: none;
+			border-radius: 0 0 24px 24px;
+		}
+		
+		.chat-input-form {
+			display: flex;
+			gap: 15px;
+		}
+		
+		.chat-input {
+			flex: 1;
+			border: 2px solid #FFE5D9;
+			border-radius: 16px;
+			padding: 14px 20px;
+			font-size: 1rem;
+			transition: all 0.2s;
+		}
+		
+		.chat-input:focus {
+			outline: none;
+			border-color: #FF8B94;
+			box-shadow: 0 0 0 3px rgba(255, 139, 148, 0.1);
+		}
+		
+		.btn-send {
+			background: linear-gradient(135deg, #FF6B6B 0%, #FFA07A 100%);
+			border: none;
+			color: white;
+			padding: 14px 36px;
+			border-radius: 16px;
+			font-weight: 600;
+			box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+			transition: all 0.2s;
+			cursor: pointer;
+		}
+		
+		.btn-send:hover:not(:disabled) {
+			transform: translateY(-2px);
+			box-shadow: 0 6px 16px rgba(255, 107, 107, 0.4);
+		}
+		
+		.btn-send:disabled {
+			opacity: 0.5;
+			cursor: not-allowed;
+		}
+		
+		.typing-indicator {
+			display: none;
+			align-items: center;
+			gap: 8px;
+			padding: 15px 20px;
+			background: linear-gradient(135deg, #FFE5D9 0%, #F4F1FF 100%);
+			border-radius: 20px;
+			max-width: 100px;
+		}
+		
+		.typing-indicator.active {
+			display: flex;
+		}
+		
+		.typing-dot {
+			width: 8px;
+			height: 8px;
+			background: #9D84B7;
+			border-radius: 50%;
+			animation: typing 1.4s infinite;
+		}
+		
+		.typing-dot:nth-child(2) {
+			animation-delay: 0.2s;
+		}
+		
+		.typing-dot:nth-child(3) {
+			animation-delay: 0.4s;
+		}
+		
+		@keyframes typing {
+			0%, 60%, 100% { transform: translateY(0); }
+			30% { transform: translateY(-10px); }
+		}
+		
+		.welcome-message {
+			text-align: center;
+			padding: 60px 20px;
+			color: #636E72;
+		}
+		
+		.welcome-icon {
+			font-size: 4rem;
+			margin-bottom: 1rem;
+		}
+
+		.footer {
+			background: white;
+			border-top: 2px solid #FFE5D9;
+			padding: 40px 0;
+			margin-top: 4rem;
+		}
+		
+		.footer-content {
+			max-width: 1200px;
+			margin: 0 auto;
+			padding: 0 20px;
+		}
+		
+		.footer-links {
+			display: flex;
+			justify-content: center;
+			gap: 30px;
+			margin-bottom: 1.5rem;
+			flex-wrap: wrap;
+		}
+		
+		.footer-links a {
+			color: #636E72;
+			text-decoration: none;
+			transition: color 0.2s;
+			font-weight: 500;
+		}
+		
+		.footer-links a:hover {
+			color: #FF6B6B;
+		}
+		
+		.copyright {
+			text-align: center;
+			color: #B2BEC3;
+			font-size: 0.9rem;
+		}
+	</style>
+</head>
+<body>
+
+	<nav class="navbar">
+		<div class="container">
+			<div class="d-flex justify-content-between align-items-center w-100">
+				<a class="navbar-brand" href="/">
+					<img src="/static/shibalogo.jpeg" alt="Plin" class="logo-img">
+					Plin
+				</a>
+				
+				<div class="d-flex align-items-center gap-2">
+					<a href="/calendar" class="nav-link-custom">Lịch trình</a>
+					<a href="/todo" class="nav-link-custom">Todo</a>
+					<a href="/notes" class="nav-link-custom">Ghi chú</a>
+					<a href="/roadmaps" class="nav-link-custom">Lộ trình</a>
+					<a href="/chat" class="nav-link-custom active">Chat</a>
+				</div>
+				
+				<div class="d-flex align-items-center gap-3">
+					<span class="user-badge">{{ session['username'] }}</span>
+					<button class="btn btn-logout" onclick="window.location.href='/logout'">
+						Đăng xuất
+					</button>
+				</div>
+			</div>
+		</div>
+	</nav>
+
+	<div class="container">
+		<div class="chat-container">
+			<div class="chat-header">
+				<h2>Chat với Plin 🐕</h2>
+				<p>Trợ lý AI của bạn, luôn sẵn sàng giúp đỡ!</p>
+			</div>
+			
+			<div class="chat-messages" id="chatMessages">
+				<div class="welcome-message">
+					<div class="welcome-icon">🐕</div>
+					<h4>Xin chào! Mình là Plin</h4>
+					<p>Bạn muốn nói chuyện về gì? Mình có thể giúp bạn quản lý công việc hoặc đơn giản là tâm sự cùng bạn!</p>
+				</div>
+			</div>
+			
+			<div class="chat-input-container">
+				<form class="chat-input-form" id="chatForm">
+					<input 
+						type="text" 
+						class="chat-input" 
+						id="messageInput"
+						placeholder="Nhập tin nhắn..."
+						autocomplete="off"
+						required>
+					<button type="submit" class="btn-send" id="sendBtn">
+						Gửi
+					</button>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		const chatMessages = document.getElementById('chatMessages');
+		const chatForm = document.getElementById('chatForm');
+		const messageInput = document.getElementById('messageInput');
+		const sendBtn = document.getElementById('sendBtn');
+
+		chatForm.addEventListener('submit', async (e) => {
+			e.preventDefault();
+			
+			const message = messageInput.value.trim();
+			if (!message) return;
+			
+			addMessage(message, 'user');
+			messageInput.value = '';
+			sendBtn.disabled = true;
+			
+			showTypingIndicator();
+			
+			try {
+				const response = await fetch('/api/chat', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({ message: message })
+				});
+				
+				const data = await response.json();
+				
+				hideTypingIndicator();
+				
+				if (data.reply) {
+					addMessage(data.reply, 'plin');
+				} else {
+					addMessage('Xin lỗi, mình gặp lỗi rồi 😢', 'plin');
+				}
+			} catch (error) {
+				hideTypingIndicator();
+				addMessage('Không thể kết nối. Vui lòng thử lại!', 'plin');
+				console.error('Error:', error);
+			}
+			
+			sendBtn.disabled = false;
+			messageInput.focus();
+		});
+
+		function addMessage(text, sender) {
+			const welcomeMsg = chatMessages.querySelector('.welcome-message');
+			if (welcomeMsg) {
+				welcomeMsg.remove();
+			}
+			
+			const messageDiv = document.createElement('div');
+			messageDiv.className = `message ${sender}`;
+			
+			const avatar = document.createElement('div');
+			avatar.className = 'message-avatar';
+			avatar.textContent = sender === 'plin' ? '🐕' : '{{ session["username"][0].upper() }}';
+			
+			const content = document.createElement('div');
+			content.className = 'message-content';
+			content.textContent = text;
+			
+			if (sender === 'plin') {
+				messageDiv.appendChild(avatar);
+				messageDiv.appendChild(content);
+			} else {
+				messageDiv.appendChild(content);
+				messageDiv.appendChild(avatar);
+			}
+			
+			chatMessages.appendChild(messageDiv);
+			chatMessages.scrollTop = chatMessages.scrollHeight;
+		}
+
+		function showTypingIndicator() {
+			const indicator = document.createElement('div');
+			indicator.className = 'message plin';
+			indicator.id = 'typingIndicator';
+			
+			const avatar = document.createElement('div');
+			avatar.className = 'message-avatar';
+			avatar.textContent = '🐕';
+			
+			const typing = document.createElement('div');
+			typing.className = 'typing-indicator active';
+			typing.innerHTML = '<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>';
+			
+			indicator.appendChild(avatar);
+			indicator.appendChild(typing);
+			chatMessages.appendChild(indicator);
+			chatMessages.scrollTop = chatMessages.scrollHeight;
+		}
+
+		function hideTypingIndicator() {
+			const indicator = document.getElementById('typingIndicator');
+			if (indicator) {
+				indicator.remove();
+			}
+		}
+
+		messageInput.focus();
+	</script>
+
+	<footer class="footer">
+		<div class="footer-content">
+			<div class="footer-links">
+				<a href="/about">Về chúng tôi</a>
+				<a href="/terms">Điều khoản sử dụng</a>
+				<a href="/privacy">Chính sách bảo mật</a>
+			</div>
+			<div class="copyright">
+				© 2025 Plin. All rights reserved. Made with ❤️ by Finn
+			</div>
+		</div>
+	</footer>	
+</body>
+</html>

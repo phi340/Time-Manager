@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Về chúng tôi - Plin</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Quicksand:wght@600;700&display=swap" rel="stylesheet">
+	<style>
+		* {
+			font-family: 'Inter', sans-serif;
+		}
+		
+		h1, h2, h3 {
+			font-family: 'Quicksand', sans-serif;
+		}
+		
+		body {
+			background-color: #FFF8F0;
+			margin: 0;
+			padding: 0;
+		}
+		
+		.navbar {
+			background: #FFFFFF;
+			border-bottom: 2px solid #FFE5D9;
+			padding: 1.2rem 0;
+			box-shadow: 0 4px 20px rgba(255, 107, 107, 0.08);
+			margin-bottom: 3rem;
+		}
+		
+		.navbar-brand {
+			font-family: 'Quicksand', sans-serif;
+			font-weight: 700;
+			font-size: 1.6rem;
+			background: linear-gradient(135deg, #FF6B6B 0%, #FFA07A 100%);
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+			background-clip: text;
+			text-decoration: none;
+			display: flex;
+			align-items: center;
+			gap: 12px;
+		}
+		
+		.logo-img {
+			width: 42px;
+			height: 42px;
+			border-radius: 50%;
+		}
+
+		.nav-link-custom {
+			color: #636E72;
+			text-decoration: none;
+			margin: 0 1rem;
+			font-weight: 500;
+			padding: 8px 16px;
+			border-radius: 12px;
+			transition: all 0.2s;
+		}
+		
+		.nav-link-custom:hover {
+			color: #FF6B6B;
+			background: #FFE5D9;
+		}
+		
+		.btn-primary-warm {
+			background: linear-gradient(135deg, #FF6B6B 0%, #FFA07A 100%);
+			border: none;
+			color: white;
+			padding: 12px 32px;
+			border-radius: 50px;
+			font-weight: 600;
+			transition: all 0.3s;
+			box-shadow: 0 4px 20px rgba(255, 107, 107, 0.3);
+		}
+		
+		.btn-primary-warm:hover {
+			transform: translateY(-2px);
+			box-shadow: 0 6px 30px rgba(255, 107, 107, 0.4);
+		}
+		
+		.btn-outline-warm {
+			border: 2px solid #FF6B6B;
+			color: #FF6B6B;
+			padding: 10px 24px;
+			border-radius: 50px;
+			font-weight: 600;
+			background: transparent;
+			transition: all 0.2s;
+		}
+		
+		.btn-outline-warm:hover {
+			background: #FF6B6B;
+			color: white;
+		}
+
+		.user-badge-home {
+			background: linear-gradient(135deg, #FFE5D9 0%, #F4F1FF 100%);
+			color: #9D84B7;
+			padding: 10px 24px;
+			border-radius: 50px;
+			font-weight: 600;
+			border: 2px solid #F4F1FF;
+		}
+		
+		.about-hero {
+			background: linear-gradient(135deg, #FF8B94 0%, #9D84B7 100%);
+			padding: 80px 0;
+			color: white;
+			text-align: center;
+			margin-bottom: 4rem;
+		}
+		
+		.about-hero h1 {
+			font-size: 3rem;
+			margin-bottom: 1rem;
+		}
+		
+		.about-section {
+			max-width: 900px;
+			margin: 0 auto 4rem;
+			padding: 0 20px;
+		}
+		
+		.about-card {
+			background: white;
+			border-radius: 24px;
+			padding: 40px;
+			box-shadow: 0 4px 20px rgba(255, 107, 107, 0.1);
+			border: 2px solid #FFE5D9;
+			margin-bottom: 2rem;
+		}
+		
+		.about-card h2 {
+			color: #2D3436;
+			margin-bottom: 1.5rem;
+			font-size: 2rem;
+		}
+		
+		.about-card p {
+			color: #636E72;
+			line-height: 1.8;
+			font-size: 1.05rem;
+			margin-bottom: 1rem;
+		}
+		
+		.creator-info {
+			display: flex;
+			align-items: center;
+			gap: 20px;
+			padding: 30px;
+			background: linear-gradient(135deg, #FFE5D9 0%, #F4F1FF 100%);
+			border-radius: 20px;
+			margin-top: 2rem;
+		}
+		
+		.creator-avatar {
+			width: 100px;
+			height: 100px;
+			border-radius: 50%;
+			background: linear-gradient(135deg, #FF6B6B 0%, #FFA07A 100%);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 3rem;
+			color: white;
+			flex-shrink: 0;
+		}
+		
+		.creator-text h3 {
+			color: #2D3436;
+			margin-bottom: 0.5rem;
+		}
+		
+		.creator-text p {
+			color: #636E72;
+			margin: 0;
+		}
+		
+		.tech-stack {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+			gap: 15px;
+			margin-top: 1.5rem;
+		}
+		
+		.tech-item {
+			background: #FFF8F0;
+			padding: 15px;
+			border-radius: 12px;
+			text-align: center;
+			border: 2px solid #FFE5D9;
+		}
+		
+		.tech-item span {
+			font-size: 2rem;
+			display: block;
+			margin-bottom: 0.5rem;
+		}
+		
+		.footer {
+			background: white;
+			border-top: 2px solid #FFE5D9;
+			padding: 40px 0;
+			margin-top: 4rem;
+		}
+		
+		.footer-content {
+			max-width: 1200px;
+			margin: 0 auto;
+			padding: 0 20px;
+		}
+		
+		.footer-links {
+			display: flex;
+			justify-content: center;
+			gap: 30px;
+			margin-bottom: 1.5rem;
+			flex-wrap: wrap;
+		}
+		
+		.footer-links a {
+			color: #636E72;
+			text-decoration: none;
+			transition: color 0.2s;
+		}
+		
+		.footer-links a:hover {
+			color: #FF6B6B;
+		}
+		
+		.copyright {
+			text-align: center;
+			color: #B2BEC3;
+			font-size: 0.9rem;
+		}
+	</style>
+</head>
+<body>
+
+	<nav class="navbar">
+		<div class="container">
+			<div class="d-flex justify-content-between align-items-center w-100">
+				<a class="navbar-brand" href="/">
+					<img src="/static/shibalogo.jpeg" alt="Plin" class="logo-img">
+					Plin
+				</a>
+				
+				<div class="d-flex align-items-center gap-3">
+					{% if session.get('user_id') %}
+						<a href="/calendar" class="nav-link-custom">Lịch trình</a>
+						<a href="/todo" class="nav-link-custom">Todo</a>
+						<a href="/notes" class="nav-link-custom">Ghi chú</a>
+						<a href="/roadmaps" class="nav-link-custom">Lộ trình</a>
+						<a href="/chat" class="nav-link-custom">Chat</a>
+					{% endif %}
+				</div>
+				
+				<div class="d-flex align-items-center gap-3">
+					{% if session.get('user_id') %}
+						<span class="user-badge-home">{{ session['username'] }}</span>
+						<button class="btn btn-outline-warm" onclick="window.location.href='/logout'">
+							Đăng xuất
+						</button>
+					{% else %}
+						<button class="btn btn-outline-warm" onclick="window.location.href='/login'">
+							Đăng nhập
+						</button>
+						<button class="btn btn-primary-warm" onclick="window.location.href='/register'">
+							Đăng ký
+						</button>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</nav>
+
+	<div class="about-hero">
+		<div class="container">
+			<h1>Về Plin</h1>
+			<p class="lead">Trợ lý AI giúp bạn làm chủ thời gian</p>
+		</div>
+	</div>
+
+	<div class="about-section">
+		<div class="about-card">
+			<h2>Câu chuyện của Plin</h2>
+			<p>
+				Plin được sinh ra từ niềm tin rằng quản lý thời gian không nên là một công việc căng thẳng. 
+				Thay vì chỉ là một ứng dụng ghi chú lạnh lùng, Plin được thiết kế như một người bạn đồng hành - 
+				một AI thông minh có thể hiểu bạn, nhắc nhở bạn đúng lúc, và động viên bạn khi cần.
+			</p>
+			<p>
+				Điểm khác biệt của Plin là khả năng chủ động. Thay vì bạn phải vào app kiểm tra công việc, 
+				Plin sẽ tự động phân tích lịch trình từ Calendar và Todo, sau đó chủ động nhắc nhở và đề xuất 
+				cách sắp xếp hiệu quả hơn. Giống như có một trợ lý cá nhân thật sự.
+			</p>
+		</div>
+
+		<div class="about-card">
+			<h2>Người sáng tạo</h2>
+			<div class="creator-info">
+				<div class="creator-avatar">👨‍💻</div>
+				<div class="creator-text">
+					<h3>Lê Đình Nguyên Phi</h3>
+					<p>Developer & Creator của Plin</p>
+					<p style="margin-top: 0.5rem;">
+						Một sinh viên/developer đam mê công nghệ và năng suất làm việc. 
+						Tạo ra Plin với mong muốn giúp mọi người quản lý thời gian tốt hơn thông qua AI.
+					</p>
+				</div>
+			</div>
+		</div>
+
+		<div class="about-card">
+			<h2>Công nghệ sử dụng</h2>
+			<div class="tech-stack">
+				<div class="tech-item">
+					<span>🐍</span>
+					<strong>Python Flask</strong>
+				</div>
+				<div class="tech-item">
+					<span>🤖</span>
+					<strong>Google Gemini AI</strong>
+				</div>
+				<div class="tech-item">
+					<span>💾</span>
+					<strong>SQLite</strong>
+				</div>
+				<div class="tech-item">
+					<span>🎨</span>
+					<strong>Bootstrap 5</strong>
+				</div>
+				<div class="tech-item">
+					<span>📅</span>
+					<strong>FullCalendar</strong>
+				</div>
+			</div>
+		</div>
+
+		<div class="about-card">
+			<h2>Liên hệ</h2>
+			<p>
+				Có ý kiến đóng góp hoặc muốn hợp tác? Hãy liên hệ với tôi qua:
+			</p>
+			<p>
+				📧 Email: waoken8967@gmail.com<br>
+			</p>
+		</div>
+	</div>
+
+	<footer class="footer">
+		<div class="footer-content">
+			<div class="footer-links">
+				<a href="/about">Về chúng tôi</a>
+				<a href="/terms">Điều khoản sử dụng</a>
+				<a href="/privacy">Chính sách bảo mật</a>
+			</div>
+			<div class="copyright">
+				© 2025 Plin. All rights reserved. Made with ❤️ by Finn
+			</div>
+		</div>
+	</footer>
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

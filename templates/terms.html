@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Điều khoản sử dụng - Plin</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Quicksand:wght@600;700&display=swap" rel="stylesheet">
+	<style>
+		* { font-family: 'Inter', sans-serif; }
+		h1, h2, h3 { font-family: 'Quicksand', sans-serif; }
+		body { background-color: #FFF8F0; }
+		
+		.navbar {
+			background: #FFFFFF;
+			border-bottom: 2px solid #FFE5D9;
+			padding: 1.2rem 0;
+			box-shadow: 0 4px 20px rgba(255, 107, 107, 0.08);
+			margin-bottom: 3rem;
+		}
+		
+		.navbar-brand {
+			font-family: 'Quicksand', sans-serif;
+			font-weight: 700;
+			font-size: 1.6rem;
+			background: linear-gradient(135deg, #FF6B6B 0%, #FFA07A 100%);
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+			text-decoration: none;
+			display: flex;
+			align-items: center;
+			gap: 12px;
+		}
+
+		.logo-img {
+			width: 42px;
+			height: 42px;
+			border-radius: 50%;
+		}
+
+		.nav-link-custom {
+			color: #636E72;
+			text-decoration: none;
+			margin: 0 1rem;
+			font-weight: 500;
+			padding: 8px 16px;
+			border-radius: 12px;
+			transition: all 0.2s;
+		}
+		
+		.nav-link-custom:hover {
+			color: #FF6B6B;
+			background: #FFE5D9;
+		}
+		
+		.btn-primary-warm {
+			background: linear-gradient(135deg, #FF6B6B 0%, #FFA07A 100%);
+			border: none;
+			color: white;
+			padding: 12px 32px;
+			border-radius: 50px;
+			font-weight: 600;
+			transition: all 0.3s;
+			box-shadow: 0 4px 20px rgba(255, 107, 107, 0.3);
+		}
+		
+		.btn-primary-warm:hover {
+			transform: translateY(-2px);
+			box-shadow: 0 6px 30px rgba(255, 107, 107, 0.4);
+		}
+		
+		.btn-outline-warm {
+			border: 2px solid #FF6B6B;
+			color: #FF6B6B;
+			padding: 10px 24px;
+			border-radius: 50px;
+			font-weight: 600;
+			background: transparent;
+			transition: all 0.2s;
+		}
+		
+		.btn-outline-warm:hover {
+			background: #FF6B6B;
+			color: white;
+		}
+
+		.user-badge-home {
+			background: linear-gradient(135deg, #FFE5D9 0%, #F4F1FF 100%);
+			color: #9D84B7;
+			padding: 10px 24px;
+			border-radius: 50px;
+			font-weight: 600;
+			border: 2px solid #F4F1FF;
+		}
+		
+		.content-container {
+			max-width: 900px;
+			margin: 0 auto 4rem;
+			padding: 0 20px;
+		}
+		
+		.content-card {
+			background: white;
+			border-radius: 24px;
+			padding: 50px;
+			box-shadow: 0 4px 20px rgba(255, 107, 107, 0.1);
+			border: 2px solid #FFE5D9;
+		}
+		
+		.content-card h1 {
+			color: #2D3436;
+			margin-bottom: 1rem;
+		}
+		
+		.content-card h2 {
+			color: #2D3436;
+			margin-top: 2rem;
+			margin-bottom: 1rem;
+			font-size: 1.5rem;
+		}
+		
+		.content-card p {
+			color: #636E72;
+			line-height: 1.8;
+			margin-bottom: 1rem;
+		}
+		
+		.last-updated {
+			color: #B2BEC3;
+			font-size: 0.9rem;
+			margin-bottom: 2rem;
+		}
+
+		.footer {
+			background: white;
+			border-top: 2px solid #FFE5D9;
+			padding: 40px 0;
+			margin-top: 4rem;
+		}
+		
+		.footer-content {
+			max-width: 1200px;
+			margin: 0 auto;
+			padding: 0 20px;
+		}
+		
+		.footer-links {
+			display: flex;
+			justify-content: center;
+			gap: 30px;
+			margin-bottom: 1.5rem;
+			flex-wrap: wrap;
+		}
+		
+		.footer-links a {
+			color: #636E72;
+			text-decoration: none;
+			transition: color 0.2s;
+			font-weight: 500;
+		}
+		
+		.footer-links a:hover {
+			color: #FF6B6B;
+		}
+		
+		.copyright {
+			text-align: center;
+			color: #B2BEC3;
+			font-size: 0.9rem;
+		}
+	</style>
+</head>
+<body>
+
+	<nav class="navbar">
+		<div class="container">
+			<div class="d-flex justify-content-between align-items-center w-100">
+				<a class="navbar-brand" href="/">
+					<img src="/static/shibalogo.jpeg" alt="Plin" class="logo-img">
+					Plin
+				</a>
+				
+				<div class="d-flex align-items-center gap-3">
+					{% if session.get('user_id') %}
+						<a href="/calendar" class="nav-link-custom">Lịch trình</a>
+						<a href="/todo" class="nav-link-custom">Todo</a>
+						<a href="/notes" class="nav-link-custom">Ghi chú</a>
+						<a href="/roadmaps" class="nav-link-custom">Lộ trình</a>
+						<a href="/chat" class="nav-link-custom">Chat</a>
+					{% endif %}
+				</div>
+				
+				<div class="d-flex align-items-center gap-3">
+					{% if session.get('user_id') %}
+						<span class="user-badge-home">{{ session['username'] }}</span>
+						<button class="btn btn-outline-warm" onclick="window.location.href='/logout'">
+							Đăng xuất
+						</button>
+					{% else %}
+						<button class="btn btn-outline-warm" onclick="window.location.href='/login'">
+							Đăng nhập
+						</button>
+						<button class="btn btn-primary-warm" onclick="window.location.href='/register'">
+							Đăng ký
+						</button>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</nav>
+
+	<div class="content-container">
+		<div class="content-card">
+			<h1>Điều khoản sử dụng</h1>
+			<p class="last-updated">Cập nhật lần cuối: Tháng 12/2024</p>
+
+			<h2>1. Chấp nhận điều khoản</h2>
+			<p>
+				Bằng việc truy cập và sử dụng Plin, bạn đồng ý tuân thủ các điều khoản và điều kiện được nêu dưới đây. 
+				Nếu bạn không đồng ý với bất kỳ phần nào của các điều khoản này, vui lòng không sử dụng dịch vụ.
+			</p>
+
+			<h2>2. Mô tả dịch vụ</h2>
+			<p>
+				Plin là ứng dụng web quản lý thời gian và công việc cá nhân, tích hợp AI để hỗ trợ người dùng 
+				lập kế hoạch, theo dõi tiến độ và nhận nhắc nhở thông minh. Dịch vụ bao gồm:
+			</p>
+			<p>
+				- Quản lý lịch trình (Calendar)<br>
+				- Danh sách công việc (Todo List)<br>
+				- Lộ trình mục tiêu (Roadmap)<br>
+				- Trò chuyện với AI trợ lý
+			</p>
+
+			<h2>3. Tài khoản người dùng</h2>
+			<p>
+				Bạn chịu trách nhiệm duy trì tính bảo mật của tài khoản và mật khẩu. 
+				Bạn đồng ý chấp nhận trách nhiệm đối với tất cả các hoạt động xảy ra trong tài khoản của mình.
+			</p>
+
+			<h2>4. Sử dụng hợp lệ</h2>
+			<p>Bạn đồng ý không:</p>
+			<p>
+				- Sử dụng dịch vụ cho mục đích bất hợp pháp<br>
+				- Cố gắng hack, phá hoại hoặc can thiệp vào hệ thống<br>
+				- Tải lên nội dung có hại, spam hoặc vi phạm pháp luật<br>
+				- Chia sẻ tài khoản hoặc cho người khác sử dụng
+			</p>
+
+			<h2>5. Quyền sở hữu trí tuệ</h2>
+			<p>
+				Tất cả nội dung, thiết kế, logo, code và tính năng của Plin thuộc quyền sở hữu của tác giả. 
+				Bạn không được sao chép, sửa đổi hoặc phân phối bất kỳ phần nào của dịch vụ mà không có sự cho phép.
+			</p>
+
+			<h2>6. Dữ liệu người dùng</h2>
+			<p>
+				Bạn vẫn sở hữu dữ liệu cá nhân của mình (tasks, lịch trình, tin nhắn). 
+				Chúng tôi chỉ sử dụng dữ liệu này để cung cấp dịch vụ và cải thiện trải nghiệm người dùng.
+			</p>
+
+			<h2>7. Giới hạn trách nhiệm</h2>
+			<p>
+				Plin được cung cấp "nguyên trạng" và "sẵn có". Chúng tôi không đảm bảo dịch vụ luôn 
+				hoạt động không gián đoạn hoặc không có lỗi. Chúng tôi không chịu trách nhiệm về bất kỳ 
+				thiệt hại trực tiếp hoặc gián tiếp nào phát sinh từ việc sử dụng dịch vụ.
+			</p>
+
+			<h2>8. Chấm dứt dịch vụ</h2>
+			<p>
+				Chúng tôi có quyền tạm ngưng hoặc chấm dứt quyền truy cập của bạn vào dịch vụ nếu 
+				phát hiện vi phạm điều khoản, mà không cần thông báo trước.
+			</p>
+
+			<h2>9. Thay đổi điều khoản</h2>
+			<p>
+				Chúng tôi có quyền cập nhật điều khoản này bất kỳ lúc nào. Việc tiếp tục sử dụng 
+				dịch vụ sau khi có thay đổi đồng nghĩa với việc bạn chấp nhận các điều khoản mới.
+			</p>
+
+			<h2>10. Liên hệ</h2>
+			<p>
+				Nếu có câu hỏi về Điều khoản sử dụng, vui lòng liên hệ: <br>
+				Email: waoken8967@gmail.com
+			</p>
+		</div>
+	</div>
+	<footer class="footer">
+		<div class="footer-content">
+			<div class="footer-links">
+				<a href="/about">Về chúng tôi</a>
+				<a href="/terms">Điều khoản sử dụng</a>
+				<a href="/privacy">Chính sách bảo mật</a>
+			</div>
+			<div class="copyright">
+				© 2025 Plin. All rights reserved. Made with ❤️ by Finn
+			</div>
+		</div>
+	</footer>
+</body>
+</html>

@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Todo List - Plin</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Quicksand:wght@600;700&display=swap" rel="stylesheet">
+	<style>
+		* {
+			font-family: 'Inter', sans-serif;
+		}
+		
+		h1, h2, h3 {
+			font-family: 'Quicksand', sans-serif;
+		}
+		
+		body {
+			background-color: #FFF8F0;
+			margin: 0;
+			padding: 0;
+		}
+		
+		.navbar {
+			background: #FFFFFF;
+			border-bottom: 2px solid #FFE5D9;
+			padding: 1.2rem 0;
+			box-shadow: 0 4px 20px rgba(255, 107, 107, 0.08);
+			margin-bottom: 2rem;
+		}
+		
+		.navbar-brand {
+			font-family: 'Quicksand', sans-serif;
+			font-weight: 700;
+			font-size: 1.6rem;
+			background: linear-gradient(135deg, #FF6B6B 0%, #FFA07A 100%);
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+			background-clip: text;
+			text-decoration: none;
+			display: flex;
+			align-items: center;
+			gap: 12px;
+		}
+		
+		.logo-img {
+			width: 42px;
+			height: 42px;
+			border-radius: 50%;
+		}
+		
+		.nav-link-custom {
+			color: #636E72;
+			text-decoration: none;
+			margin: 0 0.8rem;
+			font-weight: 500;
+			padding: 10px 20px;
+			border-radius: 12px;
+			transition: all 0.2s;
+		}
+		
+		.nav-link-custom:hover {
+			color: #FF6B6B;
+			background: #FFE5D9;
+		}
+		
+		.nav-link-custom.active {
+			color: #FF6B6B;
+			background: #FFE5D9;
+			font-weight: 600;
+		}
+		
+		.user-badge {
+			background: linear-gradient(135deg, #FFE5D9 0%, #F4F1FF 100%);
+			color: #9D84B7;
+			padding: 10px 24px;
+			border-radius: 50px;
+			font-weight: 600;
+			border: 2px solid #F4F1FF;
+		}
+		
+		.btn-logout {
+			background: transparent;
+			border: 2px solid #FF6B6B;
+			color: #FF6B6B;
+			padding: 10px 24px;
+			border-radius: 50px;
+			font-weight: 600;
+			transition: all 0.2s;
+		}
+		
+		.btn-logout:hover {
+			background: #FF6B6B;
+			color: white;
+		}
+		
+		.page-header {
+			background: linear-gradient(135deg, #FF8B94 0%, #9D84B7 100%);
+			padding: 40px;
+			border-radius: 24px;
+			color: white;
+			box-shadow: 0 4px 20px rgba(255, 107, 107, 0.15);
+			margin-bottom: 2rem;
+		}
+		
+		.page-header h1 {
+			font-weight: 700;
+			font-size: 2.2rem;
+			margin: 0;
+		}
+		
+		.page-header-info {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+		
+		.task-count-badge {
+			background: rgba(255, 255, 255, 0.3);
+			padding: 8px 20px;
+			border-radius: 50px;
+			font-weight: 600;
+			font-size: 1.1rem;
+		}
+		
+		.add-task-card {
+			background: white;
+			border-radius: 20px;
+			padding: 25px;
+			box-shadow: 0 4px 20px rgba(255, 107, 107, 0.1);
+			border: 2px solid #FFE5D9;
+			margin-bottom: 2rem;
+		}
+		
+		.add-task-card input {
+			border: 2px solid #FFE5D9;
+			border-radius: 16px;
+			padding: 14px 20px;
+			font-size: 1rem;
+			transition: all 0.2s;
+		}
+		
+		.add-task-card input:focus {
+			border-color: #FF8B94;
+			box-shadow: 0 0 0 3px rgba(255, 139, 148, 0.1);
+		}
+		
+		.btn-add-task {
+			background: linear-gradient(135deg, #FF6B6B 0%, #FFA07A 100%);
+			border: none;
+			color: white;
+			padding: 14px 32px;
+			border-radius: 16px;
+			font-weight: 600;
+			box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+			transition: all 0.2s;
+		}
+		
+		.btn-add-task:hover {
+			transform: translateY(-2px);
+			box-shadow: 0 6px 16px rgba(255, 107, 107, 0.4);
+		}
+		
+		.task-card {
+			background: white;
+			border-radius: 16px;
+			padding: 20px 25px;
+			margin-bottom: 15px;
+			border: 2px solid #FFE5D9;
+			box-shadow: 0 2px 8px rgba(255, 107, 107, 0.05);
+			transition: all 0.3s;
+		}
+		
+		.task-card:hover {
+			transform: translateY(-3px);
+			box-shadow: 0 6px 20px rgba(255, 107, 107, 0.12);
+		}
+		
+		.status-todo {
+			border-left: 5px solid #B2BEC3;
+		}
+		
+		.status-doing {
+			border-left: 5px solid #FFB84D;
+			background: #FFFBF0;
+		}
+		
+		.status-done {
+			border-left: 5px solid #4ECDC4;
+			opacity: 0.8;
+		}
+		
+		.status-done .task-text {
+			text-decoration: line-through;
+			color: #636E72;
+		}
+		
+		.task-text {
+			font-weight: 600;
+			font-size: 1.05rem;
+			color: #2D3436;
+		}
+		
+		.task-select {
+			border: 2px solid #FFE5D9;
+			border-radius: 12px;
+			padding: 8px 32px 8px 12px;
+			font-weight: 500;
+			color: #636E72;
+			transition: all 0.2s;
+			appearance: none;
+			background: white url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23636E72' d='M6 9L1 4h10z'/%3E%3C/svg%3E") no-repeat right 12px center;
+			background-size: 12px;
+		}
+		
+		.task-select:focus {
+			border-color: #FF8B94;
+			box-shadow: 0 0 0 3px rgba(255, 139, 148, 0.1);
+		}
+		
+		.btn-delete-task {
+			background: transparent;
+			border: 2px solid #FF6B6B;
+			color: #FF6B6B;
+			padding: 8px 16px;
+			border-radius: 12px;
+			font-weight: 600;
+			transition: all 0.2s;
+		}
+		
+		.btn-delete-task:hover {
+			background: #FF6B6B;
+			color: white;
+		}
+		
+		.task-time {
+			color: #636E72;
+			font-size: 0.9rem;
+			margin-top: 8px;
+		}
+
+		.footer {
+			background: white;
+			border-top: 2px solid #FFE5D9;
+			padding: 40px 0;
+			margin-top: 4rem;
+		}
+		
+		.footer-content {
+			max-width: 1200px;
+			margin: 0 auto;
+			padding: 0 20px;
+		}
+		
+		.footer-links {
+			display: flex;
+			justify-content: center;
+			gap: 30px;
+			margin-bottom: 1.5rem;
+			flex-wrap: wrap;
+		}
+		
+		.footer-links a {
+			color: #636E72;
+			text-decoration: none;
+			transition: color 0.2s;
+			font-weight: 500;
+		}
+		
+		.footer-links a:hover {
+			color: #FF6B6B;
+		}
+		
+		.copyright {
+			text-align: center;
+			color: #B2BEC3;
+			font-size: 0.9rem;
+		}
+	</style>
+</head>
+<body>
+
+	<nav class="navbar">
+		<div class="container">
+			<div class="d-flex justify-content-between align-items-center w-100">
+				<a class="navbar-brand" href="/">
+					<img src="/static/shibalogo.jpeg" alt="Plin" class="logo-img">
+					Plin
+				</a>
+				
+				<div class="d-flex align-items-center gap-2">
+					<a href="/calendar" class="nav-link-custom">Lịch trình</a>
+					<a href="/todo" class="nav-link-custom active">Todo</a>
+					<a href="/notes" class="nav-link-custom">Ghi chú</a>
+					<a href="/roadmaps" class="nav-link-custom">Lộ trình</a>
+					<a href="/chat" class="nav-link-custom">Chat</a>
+				</div>
+				
+				<div class="d-flex align-items-center gap-3">
+					<span class="user-badge">{{ session['username'] }}</span>
+					<button class="btn btn-logout" onclick="window.location.href='/logout'">
+						Đăng xuất
+					</button>
+				</div>
+			</div>
+		</div>
+	</nav>
+
+	<div class="container" style="max-width: 900px;">
+		<div class="page-header">
+			<div class="page-header-info">
+				<h1>Danh sách công việc</h1>
+				<span class="task-count-badge">{{ tasks|length }} việc</span>
+			</div>
+		</div>
+
+		<div class="add-task-card">
+			<form action="/add_todo" method="POST" class="d-flex gap-3 align-items-center">
+				<input type="text" name="content" class="form-control border-0" 
+					placeholder="Nhập việc cần làm..." required>
+				<button type="submit" class="btn btn-add-task">Thêm</button>
+			</form>
+		</div>
+
+		<div class="task-list">
+			{% for task in tasks %}
+			<div class="task-card status-{{ task[2] }}">
+				<div class="d-flex justify-content-between align-items-center">
+					<div class="task-text flex-grow-1">{{ task[1] }}</div>
+					
+					<div class="d-flex align-items-center gap-2">
+						<form action="/update_status/{{ task[0] }}" method="POST">
+							<select name="status" class="form-select form-select-sm task-select" onchange="this.form.submit()">
+								<option value="todo" {% if task[2] == 'todo' %}selected{% endif %}>Chưa làm</option>
+								<option value="doing" {% if task[2] == 'doing' %}selected{% endif %}>Đang làm</option>
+								<option value="done" {% if task[2] == 'done' %}selected{% endif %}>Đã xong</option>
+							</select>
+						</form>
+						
+						<button onclick="deleteTask('{{ task[0] }}')" class="btn btn-sm btn-delete-task">
+							Xóa
+						</button>
+					</div>
+				</div>
+				{% if task[3] %}
+				<div class="task-time">
+					Lịch: {{ task[3].split('T')[1][:5] }} - {{ task[4].split('T')[1][:5] }}
+				</div>
+				{% endif %}
+			</div>
+			{% endfor %}
+			
+			{% if not tasks %}
+			<div class="text-center py-5">
+				<div style="font-size: 4rem; margin-bottom: 1rem;">📝</div>
+				<h4 style="color: #636E72;">Chưa có công việc nào</h4>
+				<p style="color: #B2BEC3;">Hãy thêm việc đầu tiên của bạn!</p>
+			</div>
+			{% endif %}
+		</div>
+	</div>
+
+	<footer class="footer">
+		<div class="footer-content">
+			<div class="footer-links">
+				<a href="/about">Về chúng tôi</a>
+				<a href="/terms">Điều khoản sử dụng</a>
+				<a href="/privacy">Chính sách bảo mật</a>
+			</div>
+			<div class="copyright">
+				© 2025 Plin. All rights reserved. Made with ❤️ by Finn
+			</div>
+		</div>
+	</footer>
+
+	<script>
+		function deleteTask(id) {
+			if (confirm('Bạn chắc chắn muốn xóa công việc này?')) {
+				fetch('/delete/' + id).then(() => location.reload());
+			}
+		}
+	</script>
+</body>
+</html>

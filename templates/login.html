@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Đăng nhập - SmartPlanner</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Quicksand:wght@600;700&display=swap" rel="stylesheet">
+	<style>
+		* {
+			font-family: 'Inter', sans-serif;
+		}
+		
+		h1, h2, h3 {
+			font-family: 'Quicksand', sans-serif;
+		}
+		
+		body {
+			background: linear-gradient(135deg, #FFE5D9 0%, #F4F1FF 100%);
+			min-height: 100vh;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			padding: 20px;
+		}
+		
+		.auth-container {
+			max-width: 480px;
+			width: 100%;
+		}
+		
+		.auth-card {
+			background: white;
+			border-radius: 30px;
+			padding: 50px 45px;
+			box-shadow: 0 10px 40px rgba(255, 107, 107, 0.15);
+			border: 2px solid #FFE5D9;
+		}
+		
+		.logo-section {
+			text-align: center;
+			margin-bottom: 2.5rem;
+		}
+		
+		.logo-text {
+			font-family: 'Quicksand', sans-serif;
+			font-weight: 700;
+			font-size: 2.2rem;
+			background: linear-gradient(135deg, #FF6B6B 0%, #FFA07A 100%);
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+			background-clip: text;
+			margin-bottom: 0.5rem;
+		}
+		
+		.logo-subtitle {
+			color: #636E72;
+			font-size: 1rem;
+		}
+		
+		.form-label {
+			color: #2D3436;
+			font-weight: 600;
+			margin-bottom: 0.5rem;
+			font-size: 0.95rem;
+		}
+		
+		.form-control {
+			border: 2px solid #FFE5D9;
+			border-radius: 16px;
+			padding: 14px 20px;
+			font-size: 1rem;
+			transition: all 0.2s;
+		}
+		
+		.form-control:focus {
+			border-color: #FF8B94;
+			box-shadow: 0 0 0 4px rgba(255, 139, 148, 0.1);
+		}
+		
+		.btn-login {
+			background: linear-gradient(135deg, #FF6B6B 0%, #FFA07A 100%);
+			border: none;
+			color: white;
+			padding: 16px;
+			border-radius: 16px;
+			font-weight: 700;
+			font-size: 1.05rem;
+			width: 100%;
+			margin-top: 1.5rem;
+			box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+			transition: all 0.3s;
+		}
+		
+		.btn-login:hover {
+			transform: translateY(-2px);
+			box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+		}
+		
+		.divider {
+			text-align: center;
+			margin: 2rem 0;
+			color: #B2BEC3;
+			font-size: 0.9rem;
+		}
+		
+		.register-link {
+			text-align: center;
+			margin-top: 1.5rem;
+			padding-top: 1.5rem;
+			border-top: 2px solid #FFE5D9;
+		}
+		
+		.register-link a {
+			color: #FF6B6B;
+			font-weight: 600;
+			text-decoration: none;
+			transition: color 0.2s;
+		}
+		
+		.register-link a:hover {
+			color: #FF8B94;
+		}
+		
+		.alert {
+			border-radius: 16px;
+			border: none;
+			padding: 14px 20px;
+			margin-bottom: 1.5rem;
+		}
+		
+		.alert-danger {
+			background: #FFE5E5;
+			color: #FF6B6B;
+		}
+		
+		.alert-success {
+			background: #E0F7F4;
+			color: #4ECDC4;
+		}
+	</style>
+</head>
+<body>
+
+	<div class="auth-container">
+		<div class="auth-card">
+			<div class="logo-section">
+				<div class="logo-text">SmartPlanner</div>
+				<p class="logo-subtitle">Chào mừng bạn trở lại!</p>
+			</div>
+
+			{% with messages = get_flashed_messages(with_categories=true) %}
+				{% if messages %}
+					{% for category, message in messages %}
+					<div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+						{{ message }}
+						<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+					</div>
+					{% endfor %}
+				{% endif %}
+			{% endwith %}
+
+			<form method="POST">
+				<div class="mb-3">
+					<label class="form-label">Tên đăng nhập</label>
+					<input type="text" name="username" class="form-control" 
+						placeholder="Nhập username của bạn..." required autofocus>
+				</div>
+
+				<div class="mb-3">
+					<label class="form-label">Mật khẩu</label>
+					<input type="password" name="password" class="form-control" 
+						placeholder="Nhập mật khẩu..." required>
+				</div>
+
+				<button type="submit" class="btn btn-login">Đăng nhập</button>
+			</form>
+
+			<div class="register-link">
+				<span style="color: #636E72;">Chưa có tài khoản? </span>
+				<a href="/register">Đăng ký ngay</a>
+			</div>
+		</div>
+	</div>
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

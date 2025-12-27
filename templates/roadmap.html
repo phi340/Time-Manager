@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+	<meta charset="UTF-8">
+	<title>{{ roadmap['title'] }} - Plin</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Quicksand:wght@600;700&display=swap" rel="stylesheet">
+	<style>
+		* {
+			font-family: 'Inter', sans-serif;
+		}
+		
+		h1, h2, h3, h4, h5 {
+			font-family: 'Quicksand', sans-serif;
+		}
+		
+		body {
+			background-color: #FFF8F0;
+		}
+		
+		.progress-header {
+			position: sticky;
+			top: 0;
+			z-index: 1000;
+			background: white;
+			padding: 20px 0;
+			box-shadow: 0 2px 12px rgba(255, 107, 107, 0.08);
+			border-bottom: 2px solid #FFE5D9;
+		}
+
+		.progress-title {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			margin-bottom: 0.8rem;
+		}
+		
+		.progress-title h4 {
+			color: #2D3436;
+			font-size: 1.5rem;
+			margin: 0;
+		}
+		
+		.progress-badge {
+			background: linear-gradient(135deg, #4ECDC4 0%, #95E1D3 100%);
+			color: white;
+			padding: 6px 18px;
+			border-radius: 50px;
+			font-weight: 700;
+			font-size: 1.1rem;
+			box-shadow: 0 2px 8px rgba(78, 205, 196, 0.3);
+		}
+		
+		.progress {
+			height: 16px;
+			border-radius: 50px;
+			background-color: #FFE5D9;
+			overflow: hidden;
+		}
+		
+		.progress-bar {
+			background: linear-gradient(90deg, #4ECDC4 0%, #95E1D3 100%);
+			border-radius: 50px;
+			transition: width 0.6s ease;
+		}
+		
+		.back-link {
+			margin-top: 1rem;
+		}
+		
+		.back-link a {
+			color: #636E72;
+			text-decoration: none;
+			font-weight: 500;
+			transition: color 0.2s;
+		}
+		
+		.back-link a:hover {
+			color: #FF6B6B;
+		}
+		
+		.add-milestone-section {
+			max-width: 700px;
+			margin: 2.5rem auto;
+			padding: 0 20px;
+		}
+		
+		.add-milestone-card {
+			background: white;
+			border-radius: 24px;
+			padding: 30px;
+			box-shadow: 0 4px 15px rgba(255, 107, 107, 0.08);
+			border: 2px solid #FFE5D9;
+		}
+		
+		.add-milestone-card input {
+			border: 2px solid #FFE5D9;
+			border-radius: 16px;
+			padding: 14px 20px;
+			font-size: 1rem;
+			transition: all 0.2s;
+		}
+		
+		.add-milestone-card input:focus {
+			border-color: #FF8B94;
+			box-shadow: 0 0 0 3px rgba(255, 139, 148, 0.1);
+		}
+		
+		.btn-add-milestone {
+			background: linear-gradient(135deg, #FF6B6B 0%, #FFA07A 100%);
+			border: none;
+			color: white;
+			font-weight: 600;
+			padding: 14px 32px;
+			border-radius: 16px;
+			box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+			transition: all 0.2s;
+		}
+		
+		.btn-add-milestone:hover {
+			transform: translateY(-2px);
+			box-shadow: 0 6px 16px rgba(255, 107, 107, 0.4);
+		}
+
+		.path-container {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			padding: 50px 20px;
+			gap: 60px;
+		}
+
+		.milestone-box {
+			width: 350px;
+			padding: 30px;
+			background: white;
+			border: 3px solid #FFE5D9;
+			border-radius: 24px;
+			position: relative;
+			text-align: center;
+			transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+			box-shadow: 0 4px 15px rgba(255, 107, 107, 0.08);
+		}
+
+		.milestone-box:not(:last-child)::after {
+			content: '';
+			position: absolute;
+			top: 100%;
+			left: 50%;
+			width: 6px;
+			height: 60px;
+			background: #FFE5D9;
+			transform: translateX(-50%);
+			z-index: -1;
+		}
+
+		.milestone-box.completed {
+			border-color: #4ECDC4;
+			background: #F0FFFD;
+			transform: scale(1.05);
+		}
+		
+		.milestone-box.completed:not(:last-child)::after {
+			background: linear-gradient(180deg, #4ECDC4 0%, #95E1D3 100%);
+		}
+
+		.milestone-position {
+			color: #9D84B7;
+			font-weight: 700;
+			font-size: 0.85rem;
+			text-transform: uppercase;
+			letter-spacing: 1px;
+			margin-bottom: 0.5rem;
+		}
+		
+		.milestone-content {
+			font-size: 1.3rem;
+			font-weight: 700;
+			color: #2D3436;
+			margin-bottom: 1.5rem;
+		}
+
+		.btn-status {
+			border-radius: 16px;
+			font-weight: 600;
+			transition: all 0.2s;
+			padding: 12px;
+			width: 100%;
+		}
+		
+		.btn-status.btn-success {
+			background: linear-gradient(135deg, #4ECDC4 0%, #95E1D3 100%);
+			border: none;
+			box-shadow: 0 4px 12px rgba(78, 205, 196, 0.3);
+		}
+		
+		.btn-status.btn-outline-secondary {
+			border: 2px solid #B2BEC3;
+			color: #636E72;
+			background: white;
+		}
+		
+		.btn-status.btn-outline-secondary:hover {
+			background: #B2BEC3;
+			color: white;
+			border-color: #B2BEC3;
+		}
+		
+		.btn-delete-ms {
+			position: absolute;
+			top: -12px;
+			right: -12px;
+			background: #FF6B6B;
+			color: white;
+			border-radius: 50%;
+			width: 32px;
+			height: 32px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 18px;
+			text-decoration: none;
+			font-weight: bold;
+			opacity: 0;
+			transition: all 0.3s;
+			box-shadow: 0 4px 12px rgba(255, 107, 107, 0.4);
+		}
+		
+		.milestone-box:hover .btn-delete-ms {
+			opacity: 1;
+		}
+		
+		.btn-delete-ms:hover {
+			background: #ff5555;
+			transform: scale(1.15);
+		}
+		
+		.empty-state {
+			text-align: center;
+			padding: 60px 20px;
+		}
+		
+		.empty-state-icon {
+			font-size: 4rem;
+			margin-bottom: 1rem;
+		}
+		
+		.empty-state p {
+			color: #636E72;
+			font-size: 1.1rem;
+		}
+	</style>
+</head>
+<body>
+
+<div class="progress-header">
+	<div class="container" style="max-width: 900px;">
+		<div class="progress-title">
+			<h4>{{ roadmap['title'] }}</h4>
+			<span class="progress-badge">{{ progress }}%</span>
+		</div>
+		<div class="progress">
+			<div class="progress-bar progress-bar-striped progress-bar-animated" 
+				 role="progressbar" 
+				 style="width: {{ progress }}%;">
+			</div>
+		</div>
+		<div class="back-link">
+			<a href="/roadmaps">← Quay lại danh sách lộ trình</a>
+		</div>
+	</div>
+</div>
+
+<div class="add-milestone-section">
+	<div class="add-milestone-card">
+		<form action="/add_milestone/{{ roadmap['id'] }}" method="POST" class="d-flex gap-3">
+			<input type="text" name="content" class="form-control border-0" 
+				   placeholder="Nhập chặng tiếp theo..." required>
+			<button type="submit" class="btn btn-add-milestone">Thêm</button>
+		</form>
+	</div>
+</div>
+
+<div class="path-container">
+	{% for m in milestones %}
+	<div class="milestone-box {{ 'completed' if m['is_completed'] == 1 }}">
+		<a href="/delete_milestone/{{ m['id'] }}/{{ roadmap['id'] }}" 
+		   class="btn-delete-ms"
+		   onclick="return confirm('Bạn muốn xóa chặng dừng này?')">×</a>
+
+		<div class="milestone-position">Chặng {{ m['position'] }}</div>
+		<div class="milestone-content">{{ m['content'] }}</div>
+		
+		<a href="/toggle_milestone/{{ m['id'] }}/{{ roadmap['id'] }}" 
+		   class="btn btn-sm btn-status {{ 'btn-success' if m['is_completed'] == 1 else 'btn-outline-secondary' }}"
+		   onclick="event.preventDefault(); fetch(this.href).then(() => location.reload());">
+			{{ 'Đã hoàn thành' if m['is_completed'] == 1 else 'Đánh dấu xong' }}
+		</a>
+	</div>
+	{% endfor %}
+
+	{% if not milestones %}
+	<div class="empty-state">
+		<div class="empty-state-icon">🎯</div>
+		<p>Hành trình chưa có chặng nào. Hãy thêm chặng đầu tiên!</p>
+	</div>
+	{% endif %}
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

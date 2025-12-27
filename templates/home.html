@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Plin - Quản lý thời gian thông minh</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Quicksand:wght@600;700&display=swap" rel="stylesheet">
+	<style>
+		* {
+			font-family: 'Inter', sans-serif;
+		}
+		
+		h1, h2, h3 {
+			font-family: 'Quicksand', sans-serif;
+		}
+		
+		body {
+			background-color: #FFF8F0;
+			margin: 0;
+			padding: 0;
+		}
+		
+		.navbar {
+			background: #FFFFFF;
+			border-bottom: 2px solid #FFE5D9;
+			padding: 1.2rem 0;
+			box-shadow: 0 4px 20px rgba(255, 107, 107, 0.08);
+		}
+		
+		.navbar-brand {
+			font-family: 'Quicksand', sans-serif;
+			font-weight: 700;
+			font-size: 1.6rem;
+			background: linear-gradient(135deg, #FF6B6B 0%, #FFA07A 100%);
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+			background-clip: text;
+			display: flex;
+			align-items: center;
+			gap: 12px;
+		}
+		
+		.logo-img {
+			width: 42px;
+			height: 42px;
+			border-radius: 50%;
+		}
+		
+		.user-badge-home {
+			background: linear-gradient(135deg, #FFE5D9 0%, #F4F1FF 100%);
+			color: #9D84B7;
+			padding: 10px 24px;
+			border-radius: 50px;
+			font-weight: 600;
+			border: 2px solid #F4F1FF;
+		}
+		
+		.nav-link-custom {
+			color: #636E72;
+			text-decoration: none;
+			margin: 0 1rem;
+			font-weight: 500;
+			padding: 8px 16px;
+			border-radius: 12px;
+			transition: all 0.2s;
+		}
+		
+		.nav-link-custom:hover {
+			color: #FF6B6B;
+			background: #FFE5D9;
+		}
+		
+		.btn-primary-warm {
+			background: linear-gradient(135deg, #FF6B6B 0%, #FFA07A 100%);
+			border: none;
+			color: white;
+			padding: 12px 32px;
+			border-radius: 50px;
+			font-weight: 600;
+			transition: all 0.3s;
+			box-shadow: 0 4px 20px rgba(255, 107, 107, 0.3);
+		}
+		
+		.btn-primary-warm:hover {
+			transform: translateY(-2px);
+			box-shadow: 0 6px 30px rgba(255, 107, 107, 0.4);
+		}
+		
+		.btn-outline-warm {
+			border: 2px solid #FF6B6B;
+			color: #FF6B6B;
+			padding: 10px 24px;
+			border-radius: 50px;
+			font-weight: 600;
+			background: transparent;
+			transition: all 0.2s;
+		}
+		
+		.btn-outline-warm:hover {
+			background: #FF6B6B;
+			color: white;
+		}
+		
+		.hero-section {
+			background: linear-gradient(135deg, #FF8B94 0%, #9D84B7 100%);
+			color: white;
+			padding: 100px 0 80px 0;
+			position: relative;
+			overflow: hidden;
+		}
+		
+		.hero-section::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background: radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+						radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+		}
+		
+		.hero-content {
+			position: relative;
+			z-index: 1;
+		}
+		
+		.hero-section h1 {
+			font-size: 3.5rem;
+			font-weight: 700;
+			margin-bottom: 1.5rem;
+			line-height: 1.2;
+		}
+		
+		.hero-section p {
+			font-size: 1.3rem;
+			margin-bottom: 2.5rem;
+			opacity: 0.95;
+			line-height: 1.6;
+		}
+		
+		.btn-hero {
+			background: white;
+			color: #FF6B6B;
+			padding: 18px 48px;
+			border-radius: 50px;
+			font-weight: 700;
+			font-size: 1.15rem;
+			border: none;
+			box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+			transition: all 0.3s;
+		}
+		
+		.btn-hero:hover {
+			transform: translateY(-3px);
+			box-shadow: 0 12px 35px rgba(0,0,0,0.2);
+			background: #FF6B6B;
+			color: white;
+		}
+		
+		.features-section {
+			padding: 80px 0;
+			background: #FFF8F0;
+		}
+		
+		.feature-card {
+			background: white;
+			border-radius: 24px;
+			padding: 40px 30px;
+			border: 2px solid #FFE5D9;
+			box-shadow: 0 4px 20px rgba(255, 107, 107, 0.1);
+			transition: all 0.3s ease;
+			height: 100%;
+			text-align: center;
+		}
+		
+		.feature-card:hover {
+			transform: translateY(-10px);
+			box-shadow: 0 12px 35px rgba(255, 107, 107, 0.2);
+			border-color: #FF8B94;
+		}
+		
+		.feature-icon {
+			font-size: 4rem;
+			margin-bottom: 1.5rem;
+			display: block;
+		}
+		
+		.feature-card h3 {
+			color: #2D3436;
+			font-weight: 700;
+			font-size: 1.6rem;
+			margin-bottom: 1rem;
+		}
+		
+		.feature-card p {
+			color: #636E72;
+			font-size: 1.05rem;
+			line-height: 1.7;
+			margin-bottom: 1.5rem;
+		}
+		
+		.btn-feature {
+			background: transparent;
+			border: 2px solid #FF8B94;
+			color: #FF8B94;
+			padding: 12px 32px;
+			border-radius: 50px;
+			font-weight: 600;
+			transition: all 0.2s;
+		}
+		
+		.btn-feature:hover {
+			background: linear-gradient(135deg, #FF8B94 0%, #9D84B7 100%);
+			color: white;
+			border-color: transparent;
+		}
+		
+		.section-title {
+			text-align: center;
+			margin-bottom: 3.5rem;
+		}
+		
+		.section-title h2 {
+			font-size: 2.8rem;
+			font-weight: 700;
+			color: #2D3436;
+			margin-bottom: 0.5rem;
+		}
+		
+		.section-title p {
+			font-size: 1.2rem;
+			color: #636E72;
+		}
+		
+		.stats-section {
+			background: linear-gradient(135deg, #FF6B6B 0%, #FFA07A 100%);
+			padding: 70px 0;
+			color: white;
+			margin: 80px 0;
+			position: relative;
+			overflow: hidden;
+		}
+		
+		.stats-section::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background: radial-gradient(circle at 30% 50%, rgba(255, 255, 255, 0.15) 0%, transparent 60%);
+		}
+		
+		.stat-item {
+			text-align: center;
+			position: relative;
+			z-index: 1;
+		}
+		
+		.stat-number {
+			font-size: 3.5rem;
+			font-weight: 700;
+			margin-bottom: 0.5rem;
+			font-family: 'Quicksand', sans-serif;
+		}
+		
+		.stat-label {
+			font-size: 1.2rem;
+			opacity: 0.95;
+		}
+		
+		.cta-section {
+			background: #F4F1FF;
+			padding: 80px 0;
+			text-align: center;
+		}
+		
+		.cta-section h2 {
+			color: #2D3436;
+			font-size: 2.5rem;
+			margin-bottom: 1rem;
+		}
+		
+		.cta-section p {
+			color: #636E72;
+			font-size: 1.2rem;
+			margin-bottom: 2rem;
+		}
+		
+		.footer {
+			background: white;
+			border-top: 2px solid #FFE5D9;
+			padding: 40px 0;
+			margin-top: 4rem;
+		}
+		
+		.footer-content {
+			max-width: 1200px;
+			margin: 0 auto;
+			padding: 0 20px;
+		}
+		
+		.footer-links {
+			display: flex;
+			justify-content: center;
+			gap: 30px;
+			margin-bottom: 1.5rem;
+			flex-wrap: wrap;
+		}
+		
+		.footer-links a {
+			color: #636E72;
+			text-decoration: none;
+			transition: color 0.2s;
+			font-weight: 500;
+		}
+		
+		.footer-links a:hover {
+			color: #FF6B6B;
+		}
+		
+		.copyright {
+			text-align: center;
+			color: #B2BEC3;
+			font-size: 0.9rem;
+		}
+	</style>
+</head>
+<body>
+
+	<nav class="navbar">
+		<div class="container">
+			<div class="d-flex justify-content-between align-items-center w-100">
+				<a class="navbar-brand" href="/">
+					<img src="/static/shibalogo.jpeg" alt="Plin" class="logo-img">
+					Plin
+				</a>
+				
+				<div class="d-flex align-items-center gap-3">
+					{% if session.get('user_id') %}
+						<a href="/calendar" class="nav-link-custom">Lịch trình</a>
+						<a href="/todo" class="nav-link-custom">Todo</a>
+						<a href="/notes" class="nav-link-custom">Ghi chú</a>
+						<a href="/roadmaps" class="nav-link-custom">Lộ trình</a>
+						<a href="/chat" class="nav-link-custom">Chat</a>
+					{% endif %}
+				</div>
+				
+				<div class="d-flex align-items-center gap-3">
+					{% if session.get('user_id') %}
+						<span class="user-badge-home">{{ session['username'] }}</span>
+						<button class="btn btn-outline-warm" onclick="window.location.href='/logout'">
+							Đăng xuất
+						</button>
+					{% else %}
+						<button class="btn btn-outline-warm" onclick="window.location.href='/login'">
+							Đăng nhập
+						</button>
+						<button class="btn btn-primary-warm" onclick="window.location.href='/register'">
+							Đăng ký
+						</button>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</nav>
+
+	<section class="hero-section">
+		<div class="container hero-content">
+			<div class="row align-items-center">
+				<div class="col-lg-8 mx-auto text-center">
+					<h1>Trợ lý AI chủ động<br>Quản lý thời gian thông minh</h1>
+					<p class="lead">
+						Plin không chỉ ghi nhớ công việc - AI sẽ chủ động nhắc nhở bạn đúng lúc, 
+						phân tích lịch trình từ Calendar & Todo, và trò chuyện như người bạn đồng hành thực sự.
+					</p>
+					{% if session.get('user_id') %}
+						<button class="btn btn-hero" onclick="window.location.href='/chat'">
+							Trải nghiệm AI ngay
+						</button>
+					{% else %}
+						<button class="btn btn-hero" onclick="window.location.href='/register'">
+							Trải nghiệm AI ngay
+						</button>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="features-section">
+		<div class="container">
+			<div class="section-title">
+				<h2>Tính năng nổi bật</h2>
+				<p>Mọi thứ bạn cần để quản lý thời gian hiệu quả</p>
+			</div>
+			
+			<div class="row g-4 mb-4">
+				<div class="col-md-4">
+					<div class="feature-card">
+						<span class="feature-icon">🤖</span>
+						<h3>AI Chủ động</h3>
+						<p>Plin tự động đọc Calendar & Todo của bạn, chủ động nhắc nhở đúng lúc và đề xuất cách sắp xếp công việc hiệu quả hơn.</p>
+						<button class="btn btn-feature" onclick="window.location.href='/chat'">
+							Chat với AI
+						</button>
+					</div>
+				</div>
+				
+				<div class="col-md-4">
+					<div class="feature-card">
+						<span class="feature-icon">📅</span>
+						<h3>Calendar</h3>
+						<p>Lập kế hoạch chi tiết từng khung giờ bằng tính năng kéo thả trực quan. Xem toàn cảnh lịch trình theo ngày, tuần, tháng.</p>
+						<button class="btn btn-feature" onclick="window.location.href='/calendar'">
+							Xem Calendar
+						</button>
+					</div>
+				</div>
+				
+				<div class="col-md-4">
+					<div class="feature-card">
+						<span class="feature-icon">🚀</span>
+						<h3>Roadmap</h3>
+						<p>Quản lý mục tiêu dài hạn với Roadmap. Chia nhỏ mục tiêu lớn thành các bước cụ thể, dễ theo dõi tiến độ.</p>
+						<button class="btn btn-feature" onclick="window.location.href='/roadmaps'">
+							Tạo lộ trình
+						</button>
+					</div>
+				</div>
+			</div>
+			
+			<div class="row g-4 justify-content-center">
+				<div class="col-md-4">
+					<div class="feature-card">
+						<span class="feature-icon">✅</span>
+						<h3>Todo List</h3>
+						<p>Theo dõi công việc hàng ngày với Todo list thông minh. Có 3 trạng thái rõ ràng: Chưa làm, Đang làm, Hoàn thành.</p>
+						<button class="btn btn-feature" onclick="window.location.href='/todo'">
+							Quản lý Todo
+						</button>
+					</div>
+				</div>
+				
+				<div class="col-md-4">
+					<div class="feature-card">
+						<span class="feature-icon">📌</span>
+						<h3>Sticky Notes</h3>
+						<p>Ghi chú nhanh với sticky notes màu sắc. Kéo thả tự do, đổi màu linh hoạt như bảng ghim thật.</p>
+						<button class="btn btn-feature" onclick="window.location.href='/notes'">
+							Tạo ghi chú
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="stats-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4">
+					<div class="stat-item">
+						<div class="stat-number">5</div>
+						<div class="stat-label">Công cụ mạnh mẽ</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="stat-item">
+						<div class="stat-number">100%</div>
+						<div class="stat-label">Miễn phí</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="stat-item">
+						<div class="stat-number">24/7</div>
+						<div class="stat-label">Truy cập mọi lúc</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="cta-section">
+		<div class="container">
+			<h2>Sẵn sàng bắt đầu chưa?</h2>
+			<p>Tham gia ngay hôm nay và trải nghiệm quản lý thời gian với AI</p>
+			<button class="btn btn-primary-warm btn-lg" onclick="window.location.href='/register'">
+				Đăng ký miễn phí
+			</button>
+		</div>
+	</section>
+
+	<footer class="footer">
+		<div class="footer-content">
+			<div class="footer-links">
+				<a href="/about">Về chúng tôi</a>
+				<a href="/terms">Điều khoản sử dụng</a>
+				<a href="/privacy">Chính sách bảo mật</a>
+			</div>
+			<div class="copyright">
+				© 2025 Plin. All rights reserved. Made with ❤️ by Finn
+			</div>
+		</div>
+	</footer>
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

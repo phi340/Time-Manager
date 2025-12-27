@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Lịch trình - Plin</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Quicksand:wght@600;700&display=swap" rel="stylesheet">
+	<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js'></script>
+	
+	<style>
+		* {
+			font-family: 'Inter', sans-serif;
+		}
+		
+		h1, h2, h3 {
+			font-family: 'Quicksand', sans-serif;
+		}
+		
+		body {
+			background-color: #FFF8F0;
+			margin: 0;
+			padding: 0;
+		}
+		
+		.navbar {
+			background: #FFFFFF;
+			border-bottom: 2px solid #FFE5D9;
+			padding: 1.2rem 0;
+			box-shadow: 0 4px 20px rgba(255, 107, 107, 0.08);
+			margin-bottom: 2rem;
+		}
+		
+		.navbar-brand {
+			font-family: 'Quicksand', sans-serif;
+			font-weight: 700;
+			font-size: 1.6rem;
+			background: linear-gradient(135deg, #FF6B6B 0%, #FFA07A 100%);
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+			background-clip: text;
+			text-decoration: none;
+			display: flex;
+			align-items: center;
+			gap: 12px;
+		}
+		
+		.logo-img {
+			width: 42px;
+			height: 42px;
+			border-radius: 50%;
+		}
+		
+		.nav-link-custom {
+			color: #636E72;
+			text-decoration: none;
+			margin: 0 0.8rem;
+			font-weight: 500;
+			padding: 10px 20px;
+			border-radius: 12px;
+			transition: all 0.2s;
+		}
+		
+		.nav-link-custom:hover {
+			color: #FF6B6B;
+			background: #FFE5D9;
+		}
+		
+		.nav-link-custom.active {
+			color: #FF6B6B;
+			background: #FFE5D9;
+			font-weight: 600;
+		}
+		
+		.user-badge {
+			background: linear-gradient(135deg, #FFE5D9 0%, #F4F1FF 100%);
+			color: #9D84B7;
+			padding: 10px 24px;
+			border-radius: 50px;
+			font-weight: 600;
+			border: 2px solid #F4F1FF;
+		}
+		
+		.btn-logout {
+			background: transparent;
+			border: 2px solid #FF6B6B;
+			color: #FF6B6B;
+			padding: 10px 24px;
+			border-radius: 50px;
+			font-weight: 600;
+			transition: all 0.2s;
+		}
+		
+		.btn-logout:hover {
+			background: #FF6B6B;
+			color: white;
+		}
+		
+		.calendar-container {
+			background: white;
+			border-radius: 24px;
+			padding: 35px;
+			box-shadow: 0 4px 20px rgba(255, 107, 107, 0.1);
+			border: 2px solid #FFE5D9;
+		}
+		
+		.fc {
+			border: none;
+		}
+		
+		.fc-theme-standard td,
+		.fc-theme-standard th {
+			border-color: #FFE5D9;
+		}
+		
+		.fc-button-primary {
+			background: linear-gradient(135deg, #FF6B6B 0%, #FFA07A 100%);
+			border: none;
+			padding: 10px 20px;
+			border-radius: 12px;
+			font-weight: 600;
+			box-shadow: 0 2px 8px rgba(255, 107, 107, 0.3);
+			transition: all 0.2s;
+		}
+		
+		.fc-button-primary:hover:not(:disabled) {
+			background: linear-gradient(135deg, #ff5555 0%, #ff9068 100%);
+			box-shadow: 0 4px 12px rgba(255, 107, 107, 0.4);
+			transform: translateY(-1px);
+		}
+		
+		.fc-button-primary:active:not(:disabled) {
+			transform: translateY(0);
+			box-shadow: 0 2px 6px rgba(255, 107, 107, 0.4);
+		}
+		
+		.fc-button-primary:disabled {
+			opacity: 0.5;
+		}
+		
+		.fc-button-active {
+			background: linear-gradient(135deg, #ff5555 0%, #ff9068 100%) !important;
+			box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+		}
+		
+		.fc-toolbar-title {
+			color: #2D3436;
+			font-weight: 700;
+			font-size: 1.9rem;
+		}
+		
+		.fc-col-header-cell {
+			background: #FFF8F0;
+			padding: 14px 0;
+			font-weight: 600;
+			color: #636E72;
+			text-transform: uppercase;
+			font-size: 0.8rem;
+			letter-spacing: 0.5px;
+		}
+		
+		.fc-daygrid-day-number,
+		.fc-timegrid-slot-label {
+			color: #636E72;
+			font-weight: 500;
+		}
+		
+		.fc-event {
+			border-radius: 8px;
+			border: none;
+			padding: 6px 10px;
+			font-weight: 500;
+			cursor: pointer;
+			background: linear-gradient(135deg, #4ECDC4 0%, #95E1D3 100%);
+			box-shadow: 0 2px 8px rgba(78, 205, 196, 0.3);
+		}
+		
+		.fc-event:hover {
+			box-shadow: 0 4px 12px rgba(78, 205, 196, 0.4);
+			transform: translateY(-1px);
+		}
+		
+		.fc-timegrid-slot {
+			height: 3em;
+		}
+		
+		.fc-day-today {
+			background: #FFF3CD !important;
+		}
+		
+		.page-header {
+			margin-bottom: 2rem;
+			background: linear-gradient(135deg, #FF8B94 0%, #9D84B7 100%);
+			padding: 40px;
+			border-radius: 24px;
+			color: white;
+			box-shadow: 0 4px 20px rgba(255, 107, 107, 0.15);
+		}
+		
+		.page-header h1 {
+			font-weight: 700;
+			font-size: 2.2rem;
+			margin: 0;
+		}
+		
+		.page-header p {
+			margin: 0.8rem 0 0 0;
+			opacity: 0.95;
+			font-size: 1.05rem;
+		}
+
+		.footer {
+			background: white;
+			border-top: 2px solid #FFE5D9;
+			padding: 40px 0;
+			margin-top: 4rem;
+		}
+		
+		.footer-content {
+			max-width: 1200px;
+			margin: 0 auto;
+			padding: 0 20px;
+		}
+		
+		.footer-links {
+			display: flex;
+			justify-content: center;
+			gap: 30px;
+			margin-bottom: 1.5rem;
+			flex-wrap: wrap;
+		}
+		
+		.footer-links a {
+			color: #636E72;
+			text-decoration: none;
+			transition: color 0.2s;
+			font-weight: 500;
+		}
+		
+		.footer-links a:hover {
+			color: #FF6B6B;
+		}
+		
+		.copyright {
+			text-align: center;
+			color: #B2BEC3;
+			font-size: 0.9rem;
+		}
+	</style>
+</head>
+<body>
+
+	<nav class="navbar">
+		<div class="container">
+			<div class="d-flex justify-content-between align-items-center w-100">
+				<a class="navbar-brand" href="/">
+					<img src="/static/shibalogo.jpeg" alt="Plin" class="logo-img">
+					Plin
+				</a>
+				
+				<div class="d-flex align-items-center gap-2">
+					<a href="/calendar" class="nav-link-custom active">Lịch trình</a>
+					<a href="/todo" class="nav-link-custom">Todo</a>
+					<a href="/notes" class="nav-link-custom">Ghi chú</a>
+					<a href="/roadmaps" class="nav-link-custom">Lộ trình</a>
+					<a href="/chat" class="nav-link-custom">Chat</a>
+				</div>
+				
+				<div class="d-flex align-items-center gap-3">
+					<span class="user-badge">{{ session['username'] }}</span>
+					<button class="btn btn-logout" onclick="window.location.href='/logout'">
+						Đăng xuất
+					</button>
+				</div>
+			</div>
+		</div>
+	</nav>
+
+	<div class="container">
+		<div class="page-header">
+			<h1>Lịch trình của bạn</h1>
+			<p>Kéo thả để tạo sự kiện mới, di chuyển hoặc thay đổi thời gian</p>
+		</div>
+		
+		<div class="calendar-container">
+			<div id='calendar'></div>
+		</div>
+	</div>
+
+	<script>
+	  document.addEventListener('DOMContentLoaded', function() {
+		var calendarEl = document.getElementById('calendar');
+		
+		var calendar = new FullCalendar.Calendar(calendarEl, {
+			locale: 'vi',
+			initialView: 'timeGridWeek',
+			slotMinTime: '06:00:00',
+			slotMaxTime: '24:00:00',
+			editable: true,
+			selectable: true,
+			allDaySlot: false,
+			height: 'auto',
+			headerToolbar: {
+				left: 'prev,next today',
+				center: 'title',
+				right: 'timeGridDay,timeGridWeek,dayGridMonth'
+			},
+			buttonText: {
+				today: 'Hôm nay',
+				month: 'Tháng',
+				week: 'Tuần',
+				day: 'Ngày'
+			},
+			events: '/get_events',
+			
+			select: function(info) {
+				var title = prompt('Tên công việc:');
+				if (title) {
+					fetch('/add_event', {
+						method: 'POST',
+						headers: {'Content-Type': 'application/json'},
+						body: JSON.stringify({
+							title: title,
+							start: info.startStr,
+							end: info.endStr
+						})
+					}).then(() => calendar.refetchEvents());
+				}
+				calendar.unselect();
+			},
+			
+			eventDrop: function(info) {
+				updateEvent(info.event);
+			},
+			
+			eventResize: function(info) {
+				updateEvent(info.event);
+			},
+			
+			eventClick: function(info) {
+				if (confirm('Bạn có muốn xóa công việc "' + info.event.title + '" không?')) {
+					fetch('/delete_event/' + info.event.id)
+					.then(() => info.event.remove());
+				}
+			}
+		});
+
+		function updateEvent(event) {
+			fetch('/update_event', {
+				method: 'POST',
+				headers: {'Content-Type': 'application/json'},
+				body: JSON.stringify({
+					id: event.id,
+					start: event.startStr,
+					end: event.endStr
+				})
+			});
+		}
+
+		calendar.render();
+	  });
+	</script>
+
+	<footer class="footer">
+		<div class="footer-content">
+			<div class="footer-links">
+				<a href="/about">Về chúng tôi</a>
+				<a href="/terms">Điều khoản sử dụng</a>
+				<a href="/privacy">Chính sách bảo mật</a>
+			</div>
+			<div class="copyright">
+				© 2025 Plin. All rights reserved. Made with ❤️ by Finn
+			</div>
+		</div>
+	</footer>
+</body>
+</html>

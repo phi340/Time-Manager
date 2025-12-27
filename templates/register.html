@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Đăng ký - SmartPlanner</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Quicksand:wght@600;700&display=swap" rel="stylesheet">
+	<style>
+		* {
+			font-family: 'Inter', sans-serif;
+		}
+		
+		h1, h2, h3 {
+			font-family: 'Quicksand', sans-serif;
+		}
+		
+		body {
+			background: linear-gradient(135deg, #FF8B94 0%, #9D84B7 100%);
+			min-height: 100vh;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			padding: 20px;
+			position: relative;
+			overflow: hidden;
+		}
+		
+		body::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background: radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+						radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+		}
+		
+		.auth-container {
+			max-width: 500px;
+			width: 100%;
+			position: relative;
+			z-index: 1;
+		}
+		
+		.auth-card {
+			background: white;
+			border-radius: 30px;
+			padding: 50px 45px;
+			box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
+		}
+		
+		.logo-section {
+			text-align: center;
+			margin-bottom: 2.5rem;
+		}
+		
+		.logo-icon {
+			font-size: 3rem;
+			margin-bottom: 1rem;
+		}
+		
+		.logo-text {
+			font-family: 'Quicksand', sans-serif;
+			font-weight: 700;
+			font-size: 2.2rem;
+			background: linear-gradient(135deg, #FF6B6B 0%, #FFA07A 100%);
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+			background-clip: text;
+			margin-bottom: 0.5rem;
+		}
+		
+		.logo-subtitle {
+			color: #636E72;
+			font-size: 1.05rem;
+		}
+		
+		.form-label {
+			color: #2D3436;
+			font-weight: 600;
+			margin-bottom: 0.5rem;
+			font-size: 0.95rem;
+		}
+		
+		.form-control {
+			border: 2px solid #FFE5D9;
+			border-radius: 16px;
+			padding: 14px 20px;
+			font-size: 1rem;
+			transition: all 0.2s;
+		}
+		
+		.form-control:focus {
+			border-color: #FF8B94;
+			box-shadow: 0 0 0 4px rgba(255, 139, 148, 0.1);
+		}
+		
+		.btn-register {
+			background: linear-gradient(135deg, #FF8B94 0%, #9D84B7 100%);
+			border: none;
+			color: white;
+			padding: 16px;
+			border-radius: 16px;
+			font-weight: 700;
+			font-size: 1.05rem;
+			width: 100%;
+			margin-top: 1.5rem;
+			box-shadow: 0 4px 15px rgba(255, 139, 148, 0.4);
+			transition: all 0.3s;
+		}
+		
+		.btn-register:hover {
+			transform: translateY(-2px);
+			box-shadow: 0 6px 20px rgba(255, 139, 148, 0.5);
+		}
+		
+		.login-link {
+			text-align: center;
+			margin-top: 1.5rem;
+			padding-top: 1.5rem;
+			border-top: 2px solid #FFE5D9;
+		}
+		
+		.login-link a {
+			color: #9D84B7;
+			font-weight: 600;
+			text-decoration: none;
+			transition: color 0.2s;
+		}
+		
+		.login-link a:hover {
+			color: #FF8B94;
+		}
+		
+		.alert {
+			border-radius: 16px;
+			border: none;
+			padding: 14px 20px;
+			margin-bottom: 1.5rem;
+		}
+		
+		.alert-danger {
+			background: #FFE5E5;
+			color: #FF6B6B;
+		}
+		
+		.alert-warning {
+			background: #FFF4E5;
+			color: #FFB84D;
+		}
+		
+		.alert-success {
+			background: #E0F7F4;
+			color: #4ECDC4;
+		}
+		
+		.feature-list {
+			background: #FFF8F0;
+			border-radius: 16px;
+			padding: 20px;
+			margin-bottom: 1.5rem;
+		}
+		
+		.feature-item {
+			display: flex;
+			align-items: center;
+			margin-bottom: 12px;
+			color: #2D3436;
+			font-size: 0.95rem;
+		}
+		
+		.feature-item:last-child {
+			margin-bottom: 0;
+		}
+		
+		.feature-icon {
+			margin-right: 12px;
+			font-size: 1.3rem;
+		}
+	</style>
+</head>
+<body>
+
+	<div class="auth-container">
+		<div class="auth-card">
+			<div class="logo-section">
+				<div class="logo-icon">🚀</div>
+				<div class="logo-text">SmartPlanner</div>
+				<p class="logo-subtitle">Bắt đầu hành trình quản lý thời gian</p>
+			</div>
+
+			{% with messages = get_flashed_messages(with_categories=true) %}
+				{% if messages %}
+					{% for category, message in messages %}
+					<div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+						{{ message }}
+						<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+					</div>
+					{% endfor %}
+				{% endif %}
+			{% endwith %}
+
+			<div class="feature-list">
+				<div class="feature-item">
+					<span class="feature-icon">📅</span>
+					<span>Lịch trình trực quan với kéo thả</span>
+				</div>
+				<div class="feature-item">
+					<span class="feature-icon">✅</span>
+					<span>Todo list với theo dõi tiến độ</span>
+				</div>
+				<div class="feature-item">
+					<span class="feature-icon">🎯</span>
+					<span>Lộ trình mục tiêu dài hạn</span>
+				</div>
+			</div>
+
+			<form method="POST">
+				<div class="mb-3">
+					<label class="form-label">Tên đăng nhập</label>
+					<input type="text" name="username" class="form-control" 
+						placeholder="Chọn tên đăng nhập của bạn..." required autofocus>
+				</div>
+
+				<div class="mb-3">
+					<label class="form-label">Mật khẩu</label>
+					<input type="password" name="password" class="form-control" 
+						placeholder="Tạo mật khẩu mạnh..." required>
+				</div>
+
+				<button type="submit" class="btn btn-register">Tạo tài khoản miễn phí</button>
+			</form>
+
+			<div class="login-link">
+				<span style="color: #636E72;">Đã có tài khoản? </span>
+				<a href="/login">Đăng nhập ngay</a>
+			</div>
+		</div>
+	</div>
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

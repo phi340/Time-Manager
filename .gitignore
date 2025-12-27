@@ -1,0 +1,19 @@
+# 1. Bảo mật: KHÔNG bao giờ đưa API Key lên mạng
+.env
+api_key.txt
+
+# 2. Python: Các file rác sinh ra khi chạy code
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+env/
+
+# 3. Database: Tùy chọn
+# Nếu cậu muốn mỗi khi deploy sẽ có một database sạch (trống), hãy bỏ qua file .db
+# Nếu cậu muốn đưa dữ liệu hiện tại lên luôn, hãy xóa dòng dưới này
+*.db
+
+# 4. Hệ điều hành rác
+.DS_Store
+Thumbs.db
